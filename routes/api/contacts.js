@@ -12,10 +12,19 @@ router.get("/", async (_req, res, next) => {
 });
 
 router.post("/", async (req, res, next) => {
-  console.log(req.body);
   try {
     const contact = await contactsAll.addContact(req.body);
     res.status(201).json({ status: "success", code: 201, data: { contact } });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.delete("/:params", async (req, res, next) => {
+  console.log(req.params);
+  try {
+    const contact = await contactsAll.deleteContact(req.params);
+    res.status(200).json({ status: "success", code: 200, data: { contact } });
   } catch (error) {
     next(error);
   }

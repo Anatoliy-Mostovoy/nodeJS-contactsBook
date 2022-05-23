@@ -14,4 +14,16 @@ const addContact = async (body) => {
   return newContact;
 };
 
-module.exports = { getContacts, addContact };
+const deleteContact = async (contactId) => {
+  const contacts = await db.read();
+  const deleteContact = contacts.filter((contact) => {
+    return contact.id === contactId;
+  });
+  const newContacts = contacts.filter((contact) => {
+    return contact.id !== contactId;
+  });
+  await db.write(newContacts);
+  return deleteContact;
+};
+
+module.exports = { getContacts, addContact, deleteContact };

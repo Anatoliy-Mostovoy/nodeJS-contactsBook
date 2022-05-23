@@ -4,7 +4,7 @@ const cors = require("cors");
 const contactsRouter = require("./routes/api/contacts.js");
 const app = express();
 
-app.use(morgan("tiny"));
+app.use(morgan("tiny")); //* logger
 app.use(cors());
 app.use(express.json()); //* мідлвал для перетворення інфи у  req.body
 
