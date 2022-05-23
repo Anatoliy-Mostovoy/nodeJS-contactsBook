@@ -7,7 +7,7 @@ class FileAdapter {
   }
   async read() {
     const result = await fs.readFile(path.join(__dirname, this.file), "utf8");
-    const data = JSON.stringify(result);
+    const data = JSON.parse(result);
     return data;
   }
   async write(data) {

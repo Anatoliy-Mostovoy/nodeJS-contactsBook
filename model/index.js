@@ -6,4 +6,12 @@ const getContacts = async () => {
   return await db.read();
 };
 
-module.exports = { getContacts };
+const addContact = async (body) => {
+  const contacts = await db.read();
+  const newContact = { id: crypto.randomUUID(), ...body };
+  contacts.push(newContact);
+  await db.write(contacts);
+  return newContact;
+};
+
+module.exports = { getContacts, addContact };
