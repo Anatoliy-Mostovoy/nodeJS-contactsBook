@@ -6,6 +6,7 @@ const app = express();
 
 app.use(morgan("tiny"));
 app.use(cors());
+app.use(express.json()); //* мідлвал для перетворення інфи у  req.body
 
 app.use("/api/contacts", contactsRouter);
 
