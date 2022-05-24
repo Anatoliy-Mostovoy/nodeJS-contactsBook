@@ -6,6 +6,17 @@ const getContacts = async () => {
   return await db.read();
 };
 
+const getContactById = async (contactId) => {
+  const contacts = await db.read();
+  const indexContact = contacts.findIndex(
+    (contact) => contact.id === contactId
+  );
+  if (indexContact === -1) {
+    return null;
+  }
+  return contacts[indexContact];
+};
+
 const addContact = async (body) => {
   const contacts = await db.read();
   const newContact = { id: crypto.randomUUID(), ...body };
@@ -39,4 +50,10 @@ const deleteContact = async (contactId) => {
   return deleteContact;
 };
 
-module.exports = { getContacts, addContact, deleteContact, updateContacts };
+module.exports = {
+  getContacts,
+  addContact,
+  deleteContact,
+  updateContacts,
+  getContactById,
+};
