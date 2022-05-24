@@ -20,10 +20,10 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-router.delete("/:params", async (req, res, next) => {
-  console.log(req.params);
+router.delete("/:id", async (req, res, next) => {
+  console.log(req.params.id);
   try {
-    const contact = await contactsAll.deleteContact(req.params);
+    const contact = await contactsAll.deleteContact(req.params.id);
     res.status(200).json({ status: "success", code: 200, data: { contact } });
   } catch (error) {
     next(error);
