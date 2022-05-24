@@ -39,4 +39,4 @@ const deleteContact = async (contactId) => {
   return deleteContact;
 };
 
-module.exports = { getContacts, addContact, deleteContact };
+module.exports = { getContacts, addContact, deleteContact, updateContacts };

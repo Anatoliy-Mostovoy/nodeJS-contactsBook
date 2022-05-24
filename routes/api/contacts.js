@@ -20,6 +20,22 @@ router.post("/", async (req, res, next) => {
   }
 });
 
+router.put("/:id", async (req, res, next) => {
+  try {
+    const contact = await contactsAll.updateContacts(req.params.id, req.body);
+    if (contact) {
+      return res
+        .status(201)
+        .json({ status: "success", code: 201, data: { contact } });
+    }
+    return res
+      .status(404)
+      .json({ status: "error", code: 404, message: "Not found" });
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.delete("/:id", async (req, res, next) => {
   console.log(req.params.id);
   try {
