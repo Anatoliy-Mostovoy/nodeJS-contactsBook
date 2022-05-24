@@ -14,6 +14,19 @@ const addContact = async (body) => {
   return newContact;
 };
 
+const updateContacts = async (contactId, body) => {
+  const contacts = await db.read();
+  const indexContact = contacts.findIndex((contact) => {
+    return contact.id === contactId;
+  });
+  if (indexContact !== -1) {
+    contacts[indexContact] = { ...contacts[indexContact], ...body };
+    await db.write(contacts);
+    return contacts[indexContact];
+  }
+  return null;
+};
+
 const deleteContact = async (contactId) => {
   const contacts = await db.read();
   const deleteContact = contacts.filter((contact) => {
