@@ -1,6 +1,7 @@
 const express = require("express");
 const contactsAll = require("../../model/index.js");
 const router = express.Router();
+const { validateContact, validateId } = require("./validation.js");
 
 router.get("/", async (_req, res, next) => {
   try {
@@ -11,7 +12,7 @@ router.get("/", async (_req, res, next) => {
   }
 });
 
-router.get("/:id", async (req, res, next) => {
+router.get("/:id", validateId, async (req, res, next) => {
   try {
     const contact = await contactsAll.getContactById(req.params.id);
     if (!contact) {
@@ -27,7 +28,7 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-router.post("/", async (req, res, next) => {
+router.post("/", validateContact, async (req, res, next) => {
   try {
     const contact = await contactsAll.addContact(req.body);
     res.status(201).json({ status: "success", code: 201, data: { contact } });
@@ -36,7 +37,7 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-router.put("/:id", async (req, res, next) => {
+router.put("/:id", validateId, validateContact, async (req, res, next) => {
   try {
     const contact = await contactsAll.updateContacts(req.params.id, req.body);
     if (!contact) {
@@ -53,7 +54,7 @@ router.put("/:id", async (req, res, next) => {
   }
 });
 
-router.delete("/:id", async (req, res, next) => {
+router.delete("/:id", validateId, async (req, res, next) => {
   console.log(req.params.id);
   try {
     const contact = await contactsAll.deleteContact(req.params.id);
