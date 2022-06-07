@@ -6,4 +6,16 @@ const schemaContacts = Joi.object({
   email: Joi.string().email().optional(),
 });
 
-const validate = (schema, obj, res, next) => {};
+const validate = async (schema, obj, res, next) => {
+  try {
+    await schema.validateAsync(obj);
+    next();
+  } catch (err) {
+    console.log(err);
+    res.status(400).json({ status: "error", code: 400, message: err.message });
+  }
+};
+
+module.exports.validateContact = async (req, res, next) => {
+  return await validate(schemaContacts, req.body, res, next);
+};
