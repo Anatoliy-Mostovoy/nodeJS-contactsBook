@@ -1,6 +1,9 @@
 const crypto = require("crypto");
-const DB = require("./db.js"); //* затяглі клас для роботи з даними
-const db = new DB("contacts.json"); //* зробили екземлпяр класа і передели туди назву файла
+// const DB = require("./db.js"); //* затяглі клас для роботи з даними
+// const db = new DB("contacts.json"); //* зробили екземлпяр класа і передели туди назву файла
+//! прі локальному знаходжені бази у файлі
+const db = require("./db.js");
+const { ObjectId } = require("mongodb");
 
 const getContacts = async () => {
   return await db.read();
